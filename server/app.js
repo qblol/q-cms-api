@@ -14,6 +14,8 @@ mongoose.connect('mongodb://localhost/cms');
 
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy
+const morgan = require('morgan');
+app.use(morgan('dev'));
 
 // CHANGE TO YOUR DESIRE ROUTES
 const users = require('./routes/UserRoutes');

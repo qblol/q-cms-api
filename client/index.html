@@ -143,6 +143,10 @@
     $('.slider').slider();
     $('.modal').modal();
     $('ul.tabs').tabs('select_tab', '#tabsLogin');
+    var a = localStorage.getItem('token')
+    if(a != null) {
+      window.location.href = 'http://localhost:8080/data.html'
+    }
   });
   function login() {
     $.ajax({
@@ -159,7 +163,7 @@
           alert(data)
         } else {
           localStorage.setItem('token', data);
-          window.location.href = 'http://localhost:8080'
+          window.location.href = 'http://localhost:8080/data.html'
         }
       }
     })
@@ -177,7 +181,7 @@
           if(data == 'Username is already taken'){
             alert(data)
           } else {
-            window.location.href = 'http://localhost:8080/login.html'
+            window.location.href = 'http://localhost:8080'
           }
         }
       })
