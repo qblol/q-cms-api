@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var TanggalSchema = new Schema({	tanggal : String,	frequency : String},{
+var TanggalSchema = new Schema({	tanggal : String,	frequency : Number},{
 	timestamps: true
 });
 

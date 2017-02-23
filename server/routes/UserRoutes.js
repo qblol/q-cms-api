@@ -18,6 +18,11 @@ router.get('/:id', UserController.show);
 router.post('/', UserController.create);
 
 /*
+ * LOGIN
+ */
+router.post('/login', UserController.login);
+
+/*
  * PUT
  */
 router.put('/:id', UserController.update);
