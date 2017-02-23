@@ -18,7 +18,7 @@
         <li><a href="tanggal.html">Tanggal</a></li>
       </ul>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Logout</a></li>
+        <li><a onclick="logout()">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -62,7 +62,7 @@
                   <label for="searchFrequency">Search Frequency</label>
                 </div>
                 <div class="input-field col s2">
-                  <a id="search" class="waves-effect waves-light btn right blue">Search</a>
+                  <a onclick="search()" class="waves-effect waves-light btn right blue">Search</a>
                 </div>
               </div>
             </form>
@@ -206,6 +206,7 @@
           frequency: $('#editfrequency').val()
         },
         success: function(data) {
+          $('#table').empty()
           get()
           $('#editletter').val('')
           $('#editfrequency').val('')
@@ -222,6 +223,11 @@
           get()
         }
       })
+    }
+
+    function logout() {
+      localStorage.removeItem('token')
+      window.location.href = 'http://localhost:8080'
     }
   </script>
 

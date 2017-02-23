@@ -47,9 +47,29 @@ module.exports = {
   * DataController.search()
   */
   search: function (req, res) {
-    DataModel.find({letter: req.query.l}, function (err, Datas) {
-      return res.json(Datas);
-    });
+    if(req.query.l != '' && req.query.f == '') {
+      DataModel.find({letter: req.query.l}, function (err, Datas) {
+          return res.json(Datas);
+        });
+    } else if(req.query.l == '' && req.query.f != '') {
+      DataModel.find({frequency: req.query.f}, function (err, Datas) {
+          return res.json(Datas);
+        });
+    } else if(req.query.l != '' && req.query.f != '') {
+      DataModel.find({ $and: [ { letter: req.query.l }, { frequency: req.query.f } ] }, function(Datas){
+        return res.json(Datas);
+      });
+    } else {
+      DataModel.find(function (err, Datas) {
+        if (err) {
+          return res.status(500).json({
+            message: 'Error when getting Data.',
+            error: err
+          });
+        }
+        return res.json(Datas);
+      });
+    }
   },
 
   /**

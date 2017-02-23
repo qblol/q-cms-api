@@ -23,9 +23,29 @@ module.exports = {
   },
 
   search: function (req, res) {
-    TanggalModel.find({$and:[{tanggal:{$regex: req.query.t, $options:'i'}},{frequency:{$regex: req.query.f, $options:'i'}}]}, function (Datas) {
-      return res.json(Datas)
-    })
+    if(req.query.t != '' && req.query.f == '') {
+      DataModel.find({tanggal: req.query.t}, function (err, Datas) {
+          return res.json(Datas);
+        });
+    } else if(req.query.t == '' && req.query.f != '') {
+      DataModel.find({frequency: req.query.f}, function (err, Datas) {
+          return res.json(Datas);
+        });
+    } else if(req.query.t != '' && req.query.f != '') {
+      DataModel.find({ $and: [ { tanggal: req.query.t }, { frequency: req.query.f } ] }, function(Datas){
+        return res.json(Datas);
+      });
+    } else {
+      DataModel.find(function (err, Datas) {
+        if (err) {
+          return res.status(500).json({
+            message: 'Error when getting Data.',
+            error: err
+          });
+        }
+        return res.json(Datas);
+      });
+    }
   },
 
   /**
